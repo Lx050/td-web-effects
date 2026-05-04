@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video to Particles</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; overflow: hidden; }
+    canvas { display: block; }
+    .controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .controls button, .controls label {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
+    }
+    .controls button:hover, .controls label:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .controls input[type="file"] { display: none; }
+    .controls input[type="range"] {
+      width: 150px;
+      accent-color: #667eea;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      font-size: 12px;
+    }
+    .back {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+    }
+    .back:hover { background: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="webcamBtn">Use Webcam</button>
+    <label>
+      Upload Video
+      <input type="file" id="videoInput" accept="video/*">
+    </label>
+    <div class="control-group">
+      <span>Size</span>
+      <input type="range" id="sizeSlider" min="1" max="6" step="0.5" value="2">
+    </div>
+    <div class="control-group">
+      <span>Turbulence</span>
+      <input type="range" id="turbSlider" min="0" max="5" step="0.1" value="1">
+    </div>
+    <div class="control-group">
+      <span>Density</span>
+      <input type="range" id="densitySlider" min="2" max="8" step="1" value="4">
+    </div>
+  </div>
+  <a class="back" href="./">Back</a>
+  <canvas id="canvas"></canvas>
+  <script type="module" src="/src/particles.js"></script>
+</body>
+</html>

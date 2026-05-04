@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ink Flow to Text</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f5f0e8; overflow: hidden; }
+    canvas { display: block; }
+    .controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .controls button {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
+    }
+    .controls button:hover {
+      background: rgba(0,0,0,0.1);
+    }
+    .controls button.active {
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 12px;
+    }
+    .control-group input[type="range"] {
+      width: 120px;
+      accent-color: #333;
+    }
+    .text-input {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      width: 160px;
+      outline: none;
+    }
+    .text-input:focus {
+      border-color: #333;
+    }
+    .back {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back:hover { background: rgba(0,0,0,0.1); }
+    .hint {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <input type="text" class="text-input" id="textInput" value="墨韵" placeholder="Type text...">
+    <button id="disperseBtn">Disperse</button>
+    <button id="convergeBtn" class="active">Converge</button>
+    <div class="control-group">
+      <span>Flow</span>
+      <input type="range" id="flowSlider" min="0" max="5" step="0.1" value="2">
+    </div>
+    <div class="control-group">
+      <span>Ink Spread</span>
+      <input type="range" id="spreadSlider" min="0.5" max="3" step="0.1" value="1.2">
+    </div>
+    <div class="control-group">
+      <span>Speed</span>
+      <input type="range" id="speedSlider" min="0.01" max="0.1" step="0.005" value="0.04">
+    </div>
+  </div>
+  <a class="back" href="./">Back</a>
+  <p class="hint">Click "Disperse" to scatter, "Converge" to reform text</p>
+  <canvas id="canvas"></canvas>
+  <script type="module" src="/src/ink.js"></script>
+</body>
+</html>
